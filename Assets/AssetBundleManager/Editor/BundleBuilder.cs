@@ -40,7 +40,6 @@ namespace AssetBundles
         // A place where to put the assetbundles.
         public string outputPath = string.Empty;
 
-        
         void OnEnable()
         {
             if (EnabledOptions == null)
@@ -77,11 +76,11 @@ namespace AssetBundles
                 rootFolder = Utility.AssetBundlesOutputPath;
 
             // Choose the output path according to the build target.
-            string outputPath = Path.Combine(rootFolder, Utility.GetPlatformName());
-            if (!Directory.Exists(outputPath))
-                Directory.CreateDirectory(outputPath);
+            string path = Path.Combine(rootFolder, Utility.GetPlatformName());
+            if (!Directory.Exists(path))
+                Directory.CreateDirectory(path);
 
-            return outputPath;
+            return path;
         }
 
         /// <summary>
@@ -90,7 +89,7 @@ namespace AssetBundles
         public void Build()
         {
             // Choose the output path according to the build target.
-            outputPath = CreateAssetBundleDirectory(outputPath);
+            string platformOutputPath = CreateAssetBundleDirectory(outputPath);
 
             // Specifies assetbundle build options.
             var options = BuildAssetBundleOptions.None;
@@ -122,7 +121,7 @@ namespace AssetBundles
             */ 
 
             // Build assetbundles.
-            BuildPipeline.BuildAssetBundles(outputPath, options, EditorUserBuildSettings.activeBuildTarget);
+            BuildPipeline.BuildAssetBundles(platformOutputPath, options, EditorUserBuildSettings.activeBuildTarget);
         }
 
         public static void CreateBuildSetting()

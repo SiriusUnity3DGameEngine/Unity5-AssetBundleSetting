@@ -25,14 +25,14 @@ Known Issues
 ------------
 * Highly recommended to use with Unity 5.x.
 * It does not contain any script to load assetbundles, See [an asset bundle demo for Unity5 on bitbucket site](https://bitbucket.org/Unity-Technologies/assetbundledemo) or other stuff for that.
-* Not support build target platform specific setting at the moment.
+* Not support per-build target platform specific setting at the moment.
 
 
 References
 ----------
 * [Official Unity3D document page for AssetBundle5x](http://docs.unity3d.com/500/Documentation/Manual/BuildingAssetBundles5x.html)
 * [An asset bundle demo for Unity5 on bitbucket site](https://bitbucket.org/Unity-Technologies/assetbundledemo)
-* [A comprehensive document on the blog page of テラシュールブログ](http://tsubakit1.hateblo.jp/entry/2015/12/16/233336)
+* [A comprehensive document on the changes of assetbundle on Unity 5.3.x at the blog page of テラシュールブログ](http://tsubakit1.hateblo.jp/entry/2015/12/16/233336)
 
 
 License
