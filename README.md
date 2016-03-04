@@ -1,7 +1,7 @@
 AssetBundleSetting for Unity 5.x
 ================================
 
-A tool which provides a simple editor setting to build assetbundles especially Unity5.x version.
+A tool which provides a simple editor setting to build assetbundles especially on Unity5.x.
 
 
 ![ setting](./Images/setting.png "setting")
@@ -15,6 +15,7 @@ Usage
 -----
 
 * Select 'Tools/AssetBundles/Create Build Setting' menu item.
+* Select the created *'AssetBundleBuildSetting.asset'* setting file which is found under the *'Assets/AssetBundleManager/Editor'* directory.
 * Set assetbundle options.
 * Set output directory where the created bundles are placed.
 * Build!
