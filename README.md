@@ -7,7 +7,7 @@ A tool which provides a simple editor setting to build assetbundles especially U
 ![ setting](./Images/setting.png "setting")
 
 
-It provides various assetbundle options independant Unity's minor version and makes it easy to build assetbundles. 
+It provides various assetbundle options regardless of Unity's minor version and makes it easy to build assetbundles. 
 If the version of Unity is 5.3.x, it provides *'ChunkBasedCompression'* option which is newly added on Unity 5.3.x.
 
 
@@ -23,8 +23,8 @@ Usage
 Known Issues
 ------------
 * Highly recommended to use with Unity 5.x.
-* Not support build target platform specific setting at the moment.
 * It does not contain any script to load assetbundles, See [an asset bundle demo for Unity5 on bitbucket site](https://bitbucket.org/Unity-Technologies/assetbundledemo) or other stuff for that.
+* Not support build target platform specific setting at the moment.
 
 
 References
