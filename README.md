@@ -73,11 +73,20 @@ References
 * [Improved Unity asset bundle file compression on Rich Geldreich's Tech Blog](http://richg42.blogspot.kr/2015/01/improved-unity-asset-bundle-file.html)
 
 
+Other Stuffs
+------------
+
+* [AssetGraph](https://github.com/unity3d-jp/AssetGraph) - A visual toolset lets you configure and create Unity's AssetBundles. A toolset which uses different approach on handling AssetBundles.
+
+
 License
 -------
 
 This code is distributed under the terms and conditions of the MIT license.
 
-*'SerializableDictionary'* code is borrowed from @vexe at [here](http://forum.unity3d.com/threads/finally-a-serializable-dictionary-for-unity-extracted-from-system-collections-generic.335797/) The license of the that follow him.
+* *'SerializableDictionary'* code is borrowed from @vexe at [here](http://forum.unity3d.com/threads/finally-a-serializable-dictionary-for-unity-extracted-from-system-collections-generic.335797/).
+* *'Utility.cs' code is borrowed from [an asset bundle demo](https://bitbucket.org/Unity-Technologies/assetbundledemo). 
+
+The license of the that follow those.
 
 Copyright (c) 2016 Kim, Hyoun Woo
