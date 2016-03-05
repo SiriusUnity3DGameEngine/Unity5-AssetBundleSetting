@@ -28,6 +28,15 @@ namespace AssetBundles
 
         public override void OnInspectorGUI()
         {
+            // Add header
+            GUIStyle headerStyle = new GUIStyle(GUI.skin.label);
+            headerStyle.fontSize = 14;
+            headerStyle.normal.textColor = Color.white;
+            headerStyle.fontStyle = FontStyle.Bold;
+            EditorGUILayout.LabelField("AssetBundle Setting Tool", headerStyle, GUILayout.Height(20));
+            EditorGUILayout.Space();
+
+            // AssetBundle Options
             EditorGUILayout.LabelField("AssetBundle Options:", EditorStyles.boldLabel);
             string[] names = Enum.GetNames(typeof(BuildAssetBundleOptions));
             for(int i=0; i<names.Length; i++)
@@ -38,7 +47,9 @@ namespace AssetBundles
                 BuildAssetBundleOptions key = (BuildAssetBundleOptions)Enum.Parse(typeof(BuildAssetBundleOptions), names[i]);
                 if (builder.EnabledOptions.ContainsKey(key))
                 {
-                    builder.EnabledOptions[key] = EditorGUILayout.ToggleLeft(" " + names[i], builder.EnabledOptions[key]);
+                    // provides toggle with tooltip.
+                    GUIContent toggleContent = new GUIContent(" " + names[i], GetTooltip(key));
+                    builder.EnabledOptions[key] = EditorGUILayout.ToggleLeft(toggleContent, builder.EnabledOptions[key]);
                 }
             }
 
@@ -97,6 +108,7 @@ namespace AssetBundles
             }
             EditorGUILayout.Space();
 
+            // Output path setting
             EditorGUILayout.LabelField("Output Path:", EditorStyles.boldLabel);
 
             using (new EditorGUILayout.HorizontalScope())
@@ -116,6 +128,7 @@ namespace AssetBundles
             }
             EditorGUILayout.Space();
 
+            // Build
             EditorGUILayout.LabelField("AssetBundle Build:", EditorStyles.boldLabel);
             if (GUILayout.Button("Build"))
             {
@@ -125,9 +138,36 @@ namespace AssetBundles
             }
         }
 
+        /// <summary>
+        /// Returns correspond tooltip string with BuildAssetBundleOptions.
+        /// </summary>
+        private string GetTooltip(BuildAssetBundleOptions option)
+        {
+            if (option == BuildAssetBundleOptions.UncompressedAssetBundle)
+                return "Don't compress the data when creating the asset bundle.";
+            if (option == BuildAssetBundleOptions.DisableWriteTypeTree)
+                return "Do not include type information within the AssetBundle.";
+            if (option == BuildAssetBundleOptions.DeterministicAssetBundle)
+                return "Builds an asset bundle using a hash for the id of the object stored in the asset bundle.";
+            if (option == BuildAssetBundleOptions.ForceRebuildAssetBundle)
+                return "Force rebuild the assetBundles.";
+            if (option == BuildAssetBundleOptions.IgnoreTypeTreeChanges)
+                return "Ignore the type tree changes when doing the incremental build check.";
+            if (option == BuildAssetBundleOptions.AppendHashToAssetBundleName)
+                return "Append the hash to the assetBundle name.";
+#if !(UNITY_4 || UNITY_5_0 || UNITY_5_1 || UNITY_5_2) // for the version of Unity over 5.3x
+            if (option == BuildAssetBundleOptions.ChunkBasedCompression)
+                return "Use chunk-based LZ4 compression when creating the AssetBundle.";
+#endif
+
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Disable all options. Same as BuildAssetBundleOptions.None
+        /// </summary>
         private void UseDefaultSetting()
         {
-            // Invalidate all build options.
             foreach(BuildAssetBundleOptions key in builder.EnabledOptions.Keys)
             {
                 builder.EnabledOptions[key] = false;
