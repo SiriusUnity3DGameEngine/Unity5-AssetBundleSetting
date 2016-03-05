@@ -8,7 +8,7 @@ A tool which provides a simple editor setting to build assetbundles especially o
 
 
 It provides a simple editor tool to set various assetbundle options regardless of Unity's minor version so it works on any version of Unity5.x. and makes it easy to build assetbundles. 
-If the version of Unity is 5.3.x, it provides *'ChunkBasedCompression'* option which is newly added on Unity 5.3.x.
+If the version of Unity is 5.3.x, it provides [ChunkBasedCompression](http://docs.unity3d.com/ScriptReference/BuildAssetBundleOptions.ChunkBasedCompression.html) option which is newly added on Unity 5.3.x.
 
 
 Usage
@@ -26,6 +26,33 @@ Known Issues
 * Highly recommended to use on Unity 5.x. (may work on Unity 4.x but not recommended)
 * It does not contain any script to load assetbundles, See [an asset bundle demo for Unity5 on bitbucket site](https://bitbucket.org/Unity-Technologies/assetbundledemo) or other stuff for that.
 * Not support per-build target platform specific setting at the moment. (even not sure for that is neccessary for this tool)
+
+
+Additional Notes
+----------------
+
+It is also available to mark an asset as an assetbunle by setting its name with [AssetImporter.assetBundleName](http://docs.unity3d.com/ScriptReference/AssetImporter-assetBundleName.html).
+Consider to use spreadsheet or xml file for those configuration to do it as batching job instead of doing tedious thing like mouse click on every assets which are needed to be assetbundles.
+
+The following codesnip shows to do that: 
+
+```csharp
+    [MenuItem("Tools/AssetBundles/Set AssetBundles from Spreadsheet", false, 0)]
+    static void SetAssetBundlesFromSpreadsheet()
+    {
+        foreach (string path in sheet.cells)
+        {
+            ...
+            AssetImporter assetImporter = AssetImporter.GetAtPath(path);
+            assetImporter.assetBundleName = asset.name;
+            assetImporter.SaveAndReimport();
+            ...
+        }
+    }
+
+```
+
+See [Unity-QuickSheet](https://github.com/kimsama/Unity-QuickSheet) to get spreadsheet work with Unity.
 
 
 References
