@@ -56,15 +56,23 @@ namespace AssetBundles
                 {
                     bool val = false;
 #if UNITY_5
-                    // It is always enabled in the new AssetBundle build system introduced in 5.0.
-                    if (key != BuildAssetBundleOptions.CollectDependencies &&
-                        key != BuildAssetBundleOptions.CompleteAssets &&
-                        key != BuildAssetBundleOptions.DeterministicAssetBundle)
+                    // Skip some options which are not neccessary on Unity 5.x
+                    // CollectDependencies and DeterministicAssetBundle are always enabled in the new AssetBundle build system introduced in 5.0.
+                    // CompleteAssets is ingored as we always start from assets rather than objects, it should be complete by default.
+                    if (key != BuildAssetBundleOptions.None && 
+                       (key == BuildAssetBundleOptions.UncompressedAssetBundle ||
+                        key == BuildAssetBundleOptions.DisableWriteTypeTree ||
+                        key == BuildAssetBundleOptions.ForceRebuildAssetBundle ||
+                        key == BuildAssetBundleOptions.IgnoreTypeTreeChanges ||
+                        key == BuildAssetBundleOptions.AppendHashToAssetBundleName
+                #if !(UNITY_5_0 || UNITY_5_1 || UNITY_5_2) // from Unity 5.3x, it supports ChunkBasedCompression
+                        || key == BuildAssetBundleOptions.ChunkBasedCompression))
+                #endif
                     {
                         EnabledOptions.Add(key, val);
                     }
 #else
-                    EnabledOptions.Add(key, val);
+                        EnabledOptions.Add(key, val);
 #endif
                 }
             }
