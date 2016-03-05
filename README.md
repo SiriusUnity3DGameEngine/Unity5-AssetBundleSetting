@@ -40,11 +40,17 @@ The following codesnip shows to do that:
     [MenuItem("Tools/AssetBundles/Set AssetBundles from Spreadsheet", false, 0)]
     static void SetAssetBundlesFromSpreadsheet()
     {
+        // Assume that each cells of the worksheet has path of an asset and a name of assetbundle
         foreach (string path in sheet.cells)
         {
             ...
+            // Retrieve assetimporter for the given path
             AssetImporter assetImporter = AssetImporter.GetAtPath(path);
+
+            // Specify bundle name for the asset.
             assetImporter.assetBundleName = asset.name;
+
+            // Save the changes.
             assetImporter.SaveAndReimport();
             ...
         }
