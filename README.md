@@ -7,7 +7,8 @@ A tool which provides a simple editor setting to build assetbundles especially o
 ![ setting](./Images/setting.png "setting")
 
 
-It provides various assetbundle options regardless of Unity's minor version and makes it easy to build assetbundles. 
+It provides various assetbundle options regardless of Unity's minor version so it works on any version of Unity5.x. 
+and makes it easy to build assetbundles. 
 If the version of Unity is 5.3.x, it provides *'ChunkBasedCompression'* option which is newly added on Unity 5.3.x.
 
 
@@ -18,7 +19,7 @@ Usage
 * Select the created *'AssetBundleBuildSetting.asset'* setting file which is found under the *'Assets/AssetBundleManager/Editor'* directory.
 * Set assetbundle options.
 * Set output directory where the created bundles are placed.
-* Build!
+* Build it!
 
 
 Known Issues
@@ -44,5 +45,6 @@ License
 
 This code is distributed under the terms and conditions of the MIT license.
 
+*'SerializableDictionary'* code is borrowed from @vexe at [here](http://forum.unity3d.com/threads/finally-a-serializable-dictionary-for-unity-extracted-from-system-collections-generic.335797/) The license of the that follow him.
 
 Copyright (c) 2016 Kim, Hyoun Woo
