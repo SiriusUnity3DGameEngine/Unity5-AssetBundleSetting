@@ -8,7 +8,7 @@ A tool which provides a simple editor setting to build assetbundles especially o
 
 
 It provides a simple editor tool to set various assetbundle options regardless of Unity's minor version so it works on any version of Unity5.x. and makes it easy to build assetbundles. 
-If the version of Unity is 5.3.x, it provides [ChunkBasedCompression](http://docs.unity3d.com/ScriptReference/BuildAssetBundleOptions.ChunkBasedCompression.html) option which is newly added on Unity 5.3.x.
+If the version of Unity is 5.3.x, it provides *[ChunkBasedCompression](http://docs.unity3d.com/ScriptReference/BuildAssetBundleOptions.ChunkBasedCompression.html)* option which is newly added on Unity 5.3.x.
 
 
 Usage
@@ -31,8 +31,8 @@ Known Issues
 Additional Notes
 ----------------
 
-It is also available to mark an asset as an assetbunle by setting its name with [AssetImporter.assetBundleName](http://docs.unity3d.com/ScriptReference/AssetImporter-assetBundleName.html).
-Consider to use spreadsheet or xml file for those configuration to do it as batching job instead of doing tedious thing like mouse click on every assets which are needed to be assetbundles.
+It is also available to mark an asset as an assetbunle by setting its name with *[AssetImporter.assetBundleName](http://docs.unity3d.com/ScriptReference/AssetImporter-assetBundleName.html)*.
+Consider it to use spreadsheet or xml file for those configuration to do it as batching job instead of doing tedious thing like mouse click on every assets which are needed to be assetbundles.
 
 The following codesnip shows to do that: 
 
