@@ -1,4 +1,4 @@
-AssetBundleSetting for Unity 5.x
+AssetBundleSetting Tool for Unity 5.x
 ================================
 
 A tool which provides a simple editor setting to build assetbundles especially on Unity5.x.
