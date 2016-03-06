@@ -40,6 +40,14 @@ namespace AssetBundles
         // A place where to put the assetbundles.
         public string outputPath = string.Empty;
 
+        // Set the delegate if there is anything to do before building assetbundles.
+        public delegate void OnPreBuildProcessorHandler(BundleBuilder builder);
+        public static OnPreBuildProcessorHandler OnPreBuildProcessor;
+
+        // Set the delegate if there is anything to do after building assetbundles.
+        public delegate void OnPostBuildProcessorHandler(BundleBuilder builder);
+        public static OnPostBuildProcessorHandler OnPostBuildProcessor;
+
         void OnEnable()
         {
             if (EnabledOptions == null)
@@ -96,6 +104,10 @@ namespace AssetBundles
         /// </summary>
         public void Build()
         {
+            // preprocessing.
+            if (OnPreBuildProcessor != null)
+                OnPreBuildProcessor(this);
+
             // Choose the output path according to the build target.
             string platformOutputPath = CreateAssetBundleDirectory(outputPath);
 
@@ -130,6 +142,10 @@ namespace AssetBundles
 
             // Build assetbundles.
             BuildPipeline.BuildAssetBundles(platformOutputPath, options, EditorUserBuildSettings.activeBuildTarget);
+
+            // postprocessing.
+            if (OnPostBuildProcessor != null)
+                OnPostBuildProcessor(this);
         }
 
         public static void CreateBuildSetting()
