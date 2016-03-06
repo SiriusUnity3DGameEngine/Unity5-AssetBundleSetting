@@ -20,6 +20,19 @@ Usage
 * Set output directory where the created bundles are placed.
 * Build it!
 
+Use *'OnPreBuildProcessor'* and *'OnPostBuildProcessor'* delegates if you have something to do befor or after
+building assetbundles. See *'ExternalProcessor'* sample under the *'Samples'* folder for more details.
+
+```csharp
+    // Set the delegate if there is anything to do before building assetbundles.
+    public delegate void OnPreBuildProcessorHandler(BundleBuilder builder);
+    public static OnPreBuildProcessorHandler OnPreBuildProcessor;
+
+    // Set the delegate if there is anything to do after building assetbundles.
+    public delegate void OnPostBuildProcessorHandler(BundleBuilder builder);
+    public static OnPostBuildProcessorHandler OnPostBuildProcessor;
+```
+
 
 Known Issues
 ------------
