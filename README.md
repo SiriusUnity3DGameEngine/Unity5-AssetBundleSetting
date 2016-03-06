@@ -25,7 +25,7 @@ Known Issues
 ------------
 * Highly recommended to use on Unity 5.x. (may work on Unity 4.x but not recommended)
 * It does not contain any script to load assetbundles, See [an asset bundle demo for Unity5 on bitbucket site](https://bitbucket.org/Unity-Technologies/assetbundledemo) or other stuff for that.
-* Not support per-build target platform specific setting at the moment. (even not sure for that is neccessary for this tool)
+* Duplicate a setting asset file if you need multiple settings for each of target platform.
 
 
 Additional Notes
