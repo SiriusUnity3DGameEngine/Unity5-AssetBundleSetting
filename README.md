@@ -77,7 +77,7 @@ Other Stuffs
 ------------
 
 * [AssetGraph](https://github.com/unity3d-jp/AssetGraph) - A visual toolset lets you configure and create Unity's AssetBundles. A toolset which uses different approach on handling AssetBundles.
-
+* [BundleVersionChecker](https://github.com/kayy/BundleVersionChecker) - Smart workaround to get Unity's bundle version information from PlayerSettings.bundleVersion in your source code by automatic code generation from a Unity editor class.
 
 License
 -------
