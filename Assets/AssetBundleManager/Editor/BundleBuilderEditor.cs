@@ -36,6 +36,10 @@ namespace AssetBundles
             EditorGUILayout.LabelField("AssetBundle Setting Tool", headerStyle, GUILayout.Height(20));
             EditorGUILayout.Space();
 
+            // Set external scritableobject for preprcessing and postprocessing if it is necessary.
+            builder.external = EditorGUILayout.ObjectField("External:", builder.external, typeof(ScriptableObject), true) as ScriptableObject;
+            EditorGUILayout.Space();
+
             // AssetBundle Options
             EditorGUILayout.LabelField("AssetBundle Options:", EditorStyles.boldLabel);
             string[] names = Enum.GetNames(typeof(BuildAssetBundleOptions));

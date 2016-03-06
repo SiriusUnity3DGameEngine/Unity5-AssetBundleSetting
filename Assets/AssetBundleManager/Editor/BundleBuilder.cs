@@ -35,9 +35,13 @@ namespace AssetBundles
         // used seirializable dictionary to serialize assetbundle options.
         [Serializable]
         public class OptionDictionary : SerializableDictionary<BuildAssetBundleOptions, bool> { }
+        [HideInInspector]
         public OptionDictionary EnabledOptions;
 
+        public ScriptableObject external;
+
         // A place where to put the assetbundles.
+        [HideInInspector]
         public string outputPath = string.Empty;
 
         // Set the delegate if there is anything to do before building assetbundles.
