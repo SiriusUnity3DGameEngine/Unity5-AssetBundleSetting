@@ -140,6 +140,12 @@ namespace AssetBundles
                 //  See http://answers.unity3d.com/questions/852155/invalidoperationexception-operation-is-not-valid-d-1.html
                 EditorApplication.delayCall += builder.Build;
             }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(builder);
+                AssetDatabase.SaveAssets();
+            }
         }
 
         /// <summary>
