@@ -121,6 +121,26 @@ namespace AssetBundles
         }
 
         /// <summary>
+        /// BundleBuilder.outputPath stores relative path  so it should be converted 
+        /// to the absolute path before building bundles.
+        /// </summary>
+        /// <returns></returns>
+        private string GetAbsoluteOutputPath(string outputPath)
+        {
+            string projPath = GetProjectPath();
+            string subFolder = outputPath;
+
+            // remove '/' if the string start with that trailing char 
+            // otherwise Path.Combine return only the second string.
+            if (subFolder.StartsWith("/") || subFolder.StartsWith("\\"))
+                subFolder = subFolder.Substring(1);
+            string absolutePath = Path.Combine(projPath, subFolder);
+
+            absolutePath = absolutePath.Replace('\\', '/');
+            return absolutePath;
+        }
+
+        /// <summary>
         /// Export AssetsBundles under the specified output path.
         /// </summary>
         public void Build()
@@ -130,12 +150,7 @@ namespace AssetBundles
                 OnPreBuildProcessor(this);
 
             // Choose the output path according to the build target.
-            string projPath = GetProjectPath();
-            string subFolder = outputPath;
-            if (subFolder.StartsWith("/") || subFolder.StartsWith("\\"))
-                subFolder = subFolder.Substring(1);
-            string absolutePath = Path.Combine(projPath, subFolder);
-            absolutePath = absolutePath.Replace('\\', '/');
+            string absolutePath = GetAbsoluteOutputPath(outputPath);
             string platformOutputPath = CreateAssetBundleDirectory(absolutePath);
 
             // Specifies assetbundle build options.
