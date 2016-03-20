@@ -90,6 +90,19 @@ namespace AssetBundles
             }
         }
 
+        /// <summary>
+        /// Retrievs current path of this project.
+        /// Unity editor expects the current folder to be set to the project folder at all times.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetProjectPath()
+        {
+            string projectPath = System.IO.Directory.GetCurrentDirectory();
+            projectPath = projectPath.Replace('\\', '/');
+
+            return projectPath;
+        }
+
         static public string CreateAssetBundleDirectory(string rootFolder)
         {
             if (string.IsNullOrEmpty(rootFolder))
@@ -113,7 +126,13 @@ namespace AssetBundles
                 OnPreBuildProcessor(this);
 
             // Choose the output path according to the build target.
-            string platformOutputPath = CreateAssetBundleDirectory(outputPath);
+            string projPath = GetProjectPath();
+            string subFolder = outputPath;
+            if (subFolder.StartsWith("/") || subFolder.StartsWith("\\"))
+                subFolder = subFolder.Substring(1);
+            string absolutePath = Path.Combine(projPath, subFolder);
+            absolutePath = absolutePath.Replace('\\', '/');
+            string platformOutputPath = CreateAssetBundleDirectory(absolutePath);
 
             // Specifies assetbundle build options.
             var options = BuildAssetBundleOptions.None;
