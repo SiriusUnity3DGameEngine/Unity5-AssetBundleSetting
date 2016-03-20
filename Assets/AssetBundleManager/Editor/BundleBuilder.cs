@@ -31,6 +31,10 @@ namespace AssetBundles
     /// </summary>
     public class BundleBuilder : ScriptableObject
     {
+        public ScriptableObject external;
+
+        // Build target platform for the assetbunldes which are built.
+        public BuildTarget buildTarget = BuildTarget.StandaloneWindows64;
 
         // used seirializable dictionary to serialize assetbundle options.
         [Serializable]
@@ -38,7 +42,7 @@ namespace AssetBundles
         [HideInInspector]
         public OptionDictionary EnabledOptions;
 
-        public ScriptableObject external;
+
 
         // A place where to put the assetbundles.
         [HideInInspector]
@@ -164,7 +168,7 @@ namespace AssetBundles
             */ 
 
             // Build assetbundles.
-            BuildPipeline.BuildAssetBundles(platformOutputPath, options, EditorUserBuildSettings.activeBuildTarget);
+            BuildPipeline.BuildAssetBundles(platformOutputPath, options, this.buildTarget);
 
             // postprocessing.
             if (OnPostBuildProcessor != null)

@@ -10,7 +10,6 @@ using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 
 namespace AssetBundles
 {
@@ -41,10 +40,72 @@ namespace AssetBundles
             builder.external = EditorGUILayout.ObjectField("External:", builder.external, typeof(ScriptableObject), true) as ScriptableObject;
             EditorGUILayout.Space();
 
+            // Set assetbundle build target.
+            SetBuildTarget();
+            EditorGUILayout.Space();
+
             // AssetBundle Options
+            SetBundleOptions();
+            EditorGUILayout.Space();
+
+            // Output path setting
+            EditorGUILayout.LabelField("Output Path:", EditorStyles.boldLabel);
+
+            using (new EditorGUILayout.HorizontalScope())
+            {
+                builder.outputPath = GUILayout.TextField(builder.outputPath, GUILayout.MinWidth(250));
+                if (GUILayout.Button("...", GUILayout.Width(20)))
+                {
+                    // unity editor expects the current folder to be set to the project folder at all times.
+                    string projectFolder = System.IO.Directory.GetCurrentDirectory();
+                    string path = string.Empty;
+                    path = EditorUtility.OpenFolderPanel("Select folder", projectFolder, "");
+                    if (path.Length != 0)
+                    {
+                        builder.outputPath = path;
+                    }
+                }
+            }
+            EditorGUILayout.Space();
+
+            // Build
+            EditorGUILayout.LabelField("AssetBundle Build:", EditorStyles.boldLabel);
+            if (GUILayout.Button("Build"))
+            {
+                //HACK: To prevent InvalidOperationException.
+                //  See http://answers.unity3d.com/questions/852155/invalidoperationexception-operation-is-not-valid-d-1.html
+                EditorApplication.delayCall += builder.Build;
+            }
+
+            if (GUI.changed)
+            {
+                EditorUtility.SetDirty(builder);
+                AssetDatabase.SaveAssets();
+            }
+        }
+
+        /// <summary>
+        /// HACK: 
+        ///     Not likely as the previous version, Unity 5.3.x seems to be able to build 
+        ///     assetbundle without switching target platform in the build setting.
+        ///     (Not sure it also worked with Unity 5.2.x)
+        ///     So, it is more convenient to provide build target options in this setting tool.
+        /// </summary>
+        private void SetBuildTarget()
+        {
+            EditorGUILayout.LabelField("AssetBundle Build Target:", EditorStyles.boldLabel);
+
+            builder.buildTarget = (BuildTarget)EditorGUILayout.EnumPopup(builder.buildTarget);
+        }
+
+        /// <summary>
+        /// Provides GUI options to specify various bundle options.
+        /// </summary>
+        private void SetBundleOptions()
+        {
             EditorGUILayout.LabelField("AssetBundle Options:", EditorStyles.boldLabel);
             string[] names = Enum.GetNames(typeof(BuildAssetBundleOptions));
-            for(int i=0; i<names.Length; i++)
+            for (int i = 0; i < names.Length; i++)
             {
                 if (string.IsNullOrEmpty(names[i]) || names[i] == "None")
                     continue;
@@ -111,48 +172,6 @@ namespace AssetBundles
                     UseDefaultSetting();
                 }
             }
-            EditorGUILayout.Space();
-
-            // Output path setting
-            EditorGUILayout.LabelField("Output Path:", EditorStyles.boldLabel);
-
-            using (new EditorGUILayout.HorizontalScope())
-            {
-                string path = string.Empty;
-                if (string.IsNullOrEmpty(builder.outputPath))
-                    path = BundleBuilder.GetProjectPath();
-                else
-                    path = builder.outputPath;
-
-                builder.outputPath = GUILayout.TextField(path, GUILayout.MinWidth(250));
-                if (GUILayout.Button("...", GUILayout.Width(20)))
-                {
-
-                    //string projectFolder = System.IO.Directory.GetCurrentDirectory();
-                    //projectFolder = projectFolder.Replace('\\', '/');
-                    string projectFolder = Path.Combine(BundleBuilder.GetProjectPath(), builder.outputPath);
-                    
-                    path = EditorUtility.OpenFolderPanel("Select folder", projectFolder, "");
-                    if (path.Length != 0)
-                    {
-
-                        //builder.outputPath = path;
-                        //int index = path.IndexOf(projectFolder);
-                        //builder.outputPath = path.Substring(index);
-                        builder.outputPath = path.Replace(BundleBuilder.GetProjectPath(), "");
-                    }
-                }
-            }
-            EditorGUILayout.Space();
-
-            // Build
-            EditorGUILayout.LabelField("AssetBundle Build:", EditorStyles.boldLabel);
-            if (GUILayout.Button("Build"))
-            {
-                //HACK: To prevent InvalidOperationException.
-                //  See http://answers.unity3d.com/questions/852155/invalidoperationexception-operation-is-not-valid-d-1.html
-                EditorApplication.delayCall += builder.Build;
-            }
         }
 
         /// <summary>
@@ -190,7 +209,5 @@ namespace AssetBundles
                 builder.EnabledOptions[key] = false;
             }
         }
-
-
     }
 }
