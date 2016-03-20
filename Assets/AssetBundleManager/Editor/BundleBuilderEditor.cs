@@ -10,6 +10,7 @@ using UnityEditor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 
 namespace AssetBundles
 {
@@ -53,16 +54,20 @@ namespace AssetBundles
 
             using (new EditorGUILayout.HorizontalScope())
             {
+                string path = string.Empty;
+                if (string.IsNullOrEmpty(builder.outputPath))
+                    path = BundleBuilder.GetProjectPath();
+                else
+                    path = builder.outputPath;
+
                 builder.outputPath = GUILayout.TextField(builder.outputPath, GUILayout.MinWidth(250));
                 if (GUILayout.Button("...", GUILayout.Width(20)))
                 {
-                    // unity editor expects the current folder to be set to the project folder at all times.
-                    string projectFolder = System.IO.Directory.GetCurrentDirectory();
-                    string path = string.Empty;
+                    string projectFolder = Path.Combine(BundleBuilder.GetProjectPath(), builder.outputPath);
                     path = EditorUtility.OpenFolderPanel("Select folder", projectFolder, "");
                     if (path.Length != 0)
                     {
-                        builder.outputPath = path;
+                        builder.outputPath = path.Replace(BundleBuilder.GetProjectPath(), "");
                     }
                 }
             }
