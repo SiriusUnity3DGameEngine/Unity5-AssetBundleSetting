@@ -33,6 +33,19 @@ building assetbundles. See *'ExternalProcessor'* sample under the *'Samples'* fo
     public static OnPostBuildProcessorHandler OnPostBuildProcessor;
 ```
 
+You can also build assetbundle via commandline options with the following .bat file on windows:
+
+
+```
+@echo off
+SET UNITY_BIN="C:\Program Files (x86)\Unity\Editor\Unity.exe"
+SET PROJECT_PATH="PATH_YOUR_UNITY_PROJECT_WITHOUT_ASSETS_FOLDER"
+%UNITY_BIN% -quit -batchmode -nographics -projectPath %PROJECT_PATH% -logFile bundlebuild_log.txt -executeMethod ExternalBuilder.Build
+
+```
+
+See the [Command line arguments page](http://docs.unity3d.com/420/Documentation/Manual/CommandLineArguments.html) for more details.
+
 
 Known Issues
 ------------
