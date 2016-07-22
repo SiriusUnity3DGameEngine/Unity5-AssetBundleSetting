@@ -40,7 +40,7 @@ You can also build assetbundle via commandline options with the following .bat f
 @echo off
 SET UNITY_BIN="C:\Program Files (x86)\Unity\Editor\Unity.exe"
 SET PROJECT_PATH="PATH_YOUR_UNITY_PROJECT_WITHOUT_ASSETS_FOLDER"
-%UNITY_BIN% -quit -batchmode -nographics -projectPath %PROJECT_PATH% -logFile bundlebuild_log.txt -executeMethod ExternalBuilder.Build
+%UNITY_BIN% -quit -batchmode -nographics -projectPath %PROJECT_PATH% -logFile bundlebuild_log.txt -executeMethod Commandline.BuildAssetbundles
 
 ```
 
